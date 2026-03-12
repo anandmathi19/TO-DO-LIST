@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TO DO LIST</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>✔ To-Do List</h1>
+        <h3>ORGANISE YOUR TASKS & BE PRODUCTIVE</h3>
+    </header>
+
+    <!-- Task Input Section -->
+    <section>
+        <form>
+            <input type="text" placeholder="Enter a new task..." name="task">
+            <button type="submit">Add Task</button>
+        </form>
+    </section>
+
+    <!-- Filter Buttons -->
+    <section>
+        <button>All</button>
+        <button>Pending</button>
+        <button>Completed</button>
+    </section>
+
+    <!-- Task Counter -->
+    <section>
+        <p>5 Tasks | 2 completed</p>
+    </section>
+
+    <!-- Task List -->
+    <section>
+        <ul>
+            <li>
+                <input type="checkbox">
+                Study Python - Day 89 Project
+                <button>Delete</button>
+                <button>Edit</button>
+            </li>
+
+            <li>
+                <input type="checkbox">
+                Build Website
+                <button>Delete</button>
+                <button>Edit</button>
+            </li>
+
+            <li>
+                <input type="checkbox">
+                Practice DSA
+                <button>Delete</button>
+                <button>Edit</button>
+            </li>
+
+        </ul>
+    </section>
+
+    <!-- Clear Completed -->
+    <section>
+        <button>Clear Completed</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p> Stay Consistent, Stay Productive!</p>
+    </footer>
+
+</body>
+</html>
