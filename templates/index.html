@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>TO DO LIST</title>
@@ -7,66 +8,63 @@
 </head>
 
 <body>
+
     <header>
         <h1>✔ To-Do List</h1>
         <h3>ORGANISE YOUR TASKS & BE PRODUCTIVE</h3>
     </header>
 
-    <!-- Task Input Section -->
-    <section>
-        <form>
+    <section class="task-input">
+        <form method="POST">
             <input type="text" placeholder="Enter a new task..." name="task">
             <button type="submit">Add Task</button>
         </form>
     </section>
 
-    <!-- Filter Buttons -->
-    <section>
-        <button>All</button>
-        <button>Pending</button>
-        <button>Completed</button>
+    <section class="filters">
+        <button onclick="location.href='{{ url_for('filter_tasks', status='all') }}'"
+            {% if filter_status=='all' %}style="background:#6366f1;"{% endif %}>All</button>
+        <button onclick="location.href='{{ url_for('filter_tasks', status='pending') }}'"
+            {% if filter_status=='pending' %}style="background:#6366f1;"{% endif %}>Pending</button>
+        <button onclick="location.href='{{ url_for('filter_tasks', status='completed') }}'"
+            {% if filter_status=='completed' %}style="background:#6366f1;"{% endif %}>Completed</button>
     </section>
 
-    <!-- Task Counter -->
-    <section>
-        <p>5 Tasks | 2 completed</p>
-    </section>
-
-    <!-- Task List -->
-    <section>
+    <section class="task-list">
         <ul>
+            {% for task in tasks %}
             <li>
-                <input type="checkbox">
-                Study Python - Day 89 Project
-                <button>Delete</button>
-                <button>Edit</button>
-            </li>
+                <input type="checkbox" onclick="location.href='{{ url_for('toggle', task_id=loop.index0) }}'"
+                       {% if task.completed %}checked{% endif %}>
 
-            <li>
-                <input type="checkbox">
-                Build Website
-                <button>Delete</button>
-                <button>Edit</button>
-            </li>
+                <span {% if task.completed %}style="text-decoration: line-through;"{% endif %}>
+                    {{ task.task }}
+                </span>
 
-            <li>
-                <input type="checkbox">
-                Practice DSA
-                <button>Delete</button>
-                <button>Edit</button>
+                <div class="task-buttons">
+                    <button onclick="location.href='{{ url_for('delete', task_id=loop.index0) }}'">Delete</button>
+                </div>
             </li>
-
+            {% endfor %}
         </ul>
     </section>
 
-    <!-- Clear Completed -->
-    <section>
-        <button>Clear Completed</button>
+    <section class="task-counter">
+        {% set completed_count = 0 %}
+        {% for task in tasks %}
+            {% if task.completed %}
+                {% set completed_count = completed_count + 1 %}
+            {% endif %}
+        {% endfor %}
+        <p>{{ tasks|length }} Tasks | {{ completed_count }} completed</p>
     </section>
 
-    <!-- Footer -->
+    <section class="clear-completed">
+        <button onclick="location.href='{{ url_for('clear_completed') }}'">Clear Completed</button>
+    </section>
+
     <footer>
-        <p> Stay Consistent, Stay Productive!</p>
+        <p>Stay Consistent, Stay Productive!</p>
     </footer>
 
 </body>
